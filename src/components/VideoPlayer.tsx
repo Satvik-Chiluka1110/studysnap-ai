@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Play, Pause, RotateCcw, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { toast } from "sonner";
 
 interface Props {
   images: string[];
@@ -15,7 +16,7 @@ export default function VideoPlayer({ images, script }: Props) {
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const intervalRef = useRef<number | null>(null);
   const totalSlides = images.length || 1;
-  const slideDuration = 8000; // ms per slide
+  const slideDuration = 8000;
 
   const stop = useCallback(() => {
     setPlaying(false);
@@ -29,7 +30,6 @@ export default function VideoPlayer({ images, script }: Props) {
     setCurrentSlide(0);
     setProgress(0);
 
-    // TTS
     const utterance = new SpeechSynthesisUtterance(script);
     utterance.rate = 0.9;
     utterance.pitch = 1;
@@ -37,7 +37,6 @@ export default function VideoPlayer({ images, script }: Props) {
     utteranceRef.current = utterance;
     speechSynthesis.speak(utterance);
 
-    // Slide rotation
     let slide = 0;
     let elapsed = 0;
     const tick = 200;
@@ -69,7 +68,6 @@ export default function VideoPlayer({ images, script }: Props) {
 
   return (
     <div className="space-y-4">
-      {/* Slideshow */}
       <div className="relative aspect-video bg-muted rounded-lg overflow-hidden">
         {images.length > 0 ? (
           <img
@@ -103,7 +101,7 @@ export default function VideoPlayer({ images, script }: Props) {
           <RotateCcw className="h-4 w-4" />
         </Button>
         <Button variant="outline" className="gap-2 ml-auto" onClick={() => {
-          toast("Video download uses MediaRecorder — coming soon!");
+          toast("Video download coming soon!");
         }}>
           <Download className="h-4 w-4" /> Download
         </Button>
@@ -111,6 +109,3 @@ export default function VideoPlayer({ images, script }: Props) {
     </div>
   );
 }
-
-// Quick inline import
-import { toast } from "sonner";

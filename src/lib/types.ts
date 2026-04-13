@@ -3,6 +3,12 @@ export interface Flashcard {
   answer: string;
 }
 
+export interface Chapter {
+  title: string;
+  startSlide: number;
+  narrationSegment: string;
+}
+
 export interface SessionData {
   id: string;
   title: string;
@@ -12,6 +18,7 @@ export interface SessionData {
   keyPoints: string[];
   flashcards: Flashcard[];
   narrationScript: string;
+  chapters: Chapter[];
   imageKeywords: string[];
   imageUrls: string[];
 }
@@ -21,6 +28,7 @@ export interface GenerationResult {
   keyPoints: string[];
   flashcards: Flashcard[];
   narrationScript: string;
+  chapters: Chapter[];
   imageKeywords: string[];
   title: string;
 }

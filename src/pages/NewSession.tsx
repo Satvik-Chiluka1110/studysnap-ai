@@ -80,6 +80,7 @@ export default function NewSession() {
         keyPoints: result.keyPoints,
         flashcards: result.flashcards,
         narrationScript: result.narrationScript,
+        chapters: result.chapters || [],
         imageKeywords: result.imageKeywords,
         imageUrls,
       };

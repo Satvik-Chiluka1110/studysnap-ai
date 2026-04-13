@@ -64,7 +64,7 @@ export default function SessionView() {
                 <CardTitle>AI Explainer Video</CardTitle>
               </CardHeader>
               <CardContent>
-                <VideoPlayer images={session.imageUrls} script={session.narrationScript} />
+                <VideoPlayer images={session.imageUrls} script={session.narrationScript} chapters={session.chapters || []} />
               </CardContent>
             </Card>
           </TabsContent>

@@ -94,13 +94,27 @@ You MUST respond with valid JSON using the exact schema provided via tool callin
                     type: "string",
                     description: "A detailed 3-4 minute narration script that teaches the content like an engaging lecture. Walk through the material systematically, referencing specific facts, examples, and details from the text. Use transitions like 'Now let's look at...', 'An important detail here is...', 'The key takeaway is...'. Include pauses marked with '...' for emphasis. Do NOT use generic filler — every sentence must convey specific information from the source.",
                   },
+                  chapters: {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        title: { type: "string", description: "Short chapter title (e.g., 'Introduction', 'Key Concepts', 'Examples & Applications')" },
+                        startSlide: { type: "number", description: "The 0-based slide/image index where this chapter begins" },
+                        narrationSegment: { type: "string", description: "The portion of the narration script that belongs to this chapter" },
+                      },
+                      required: ["title", "startSlide", "narrationSegment"],
+                      additionalProperties: false,
+                    },
+                    description: "4-6 chapters that divide the narration into logical sections. Each chapter maps to a slide range and a segment of the narration. The chapters should cover the full narration script sequentially.",
+                  },
                   imageKeywords: {
                     type: "array",
                     items: { type: "string" },
                     description: "8-10 specific, visual search keywords directly related to the topics, concepts, and subjects discussed in the content. Be precise (e.g., 'mitochondria cell organelle' not just 'biology', 'Renaissance painting Florence' not just 'art')",
                   },
                 },
-                required: ["title", "summary", "keyPoints", "flashcards", "narrationScript", "imageKeywords"],
+                required: ["title", "summary", "keyPoints", "flashcards", "narrationScript", "chapters", "imageKeywords"],
                 additionalProperties: false,
               },
             },
